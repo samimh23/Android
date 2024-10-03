@@ -25,22 +25,20 @@ import com.example.myapplicationjetpackcolor.ui.theme.RESULT
 import com.example.myapplicationjetpackcolor.ui.theme.SUCCESS
 
 class AnswerActivity : ComponentActivity() {
-    private var name = "NONE"
-    private var color1 = "NONE"
-    private var color2 = "NONE"
+    private lateinit var name: String
+    private lateinit var color1: String
+    private lateinit var color2: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Retrieve the colors and name from the intent
+        // Retrieve data from the intent
         name = intent.getStringExtra(NAME) ?: "NONE"
         color1 = intent.getStringExtra(COLOR1) ?: "NONE"
         color2 = intent.getStringExtra(COLOR2) ?: "NONE"
 
-        // Log the received colors for debugging
         Log.d("AnswerActivity", "Received colors: color1=$color1, color2=$color2")
 
-        // Determine the correct color based on the selected colors
         val correctColor = determineCorrectColor(color1, color2)
 
         setContent {
@@ -57,14 +55,16 @@ class AnswerActivity : ComponentActivity() {
         }
     }
 
-    // Function to determine the correct color based on selected colors
     private fun determineCorrectColor(color1: String, color2: String): String {
         Log.d("AnswerActivity", "Determining correct color for: $color1 and $color2")
         return when {
             (color1.equals("RED", ignoreCase = true) && color2.equals("YELLOW", ignoreCase = true)) ||
                     (color1.equals("YELLOW", ignoreCase = true) && color2.equals("RED", ignoreCase = true)) -> "Orange"
-            // Add more conditions for other color combinations here
-            else -> "NONE" // Default if no combination matches
+            (color1.equals("BLUE", ignoreCase = true) && color2.equals("RED", ignoreCase = true)) ||
+                    (color1.equals("RED", ignoreCase = true) && color2.equals("BLUE", ignoreCase = true)) -> "Purple"
+            (color1.equals("BLUE", ignoreCase = true) && color2.equals("YELLOW", ignoreCase = true)) ||
+                    (color1.equals("YELLOW", ignoreCase = true) && color2.equals("BLUE", ignoreCase = true)) -> "Green"
+            else -> "NONE"
         }
     }
 
@@ -91,7 +91,6 @@ fun AnswerScreen(name: String, color1: String, color2: String, correctColor: Str
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Radio button group for selecting the answer
         RadioButtonGroup(
             selectedAnswer = selectedAnswer,
             onAnswerSelected = { selectedAnswer = it }
@@ -103,9 +102,8 @@ fun AnswerScreen(name: String, color1: String, color2: String, correctColor: Str
             if (selectedAnswer.isEmpty()) {
                 showSnackbar = true
             } else {
-                // Check if the selected answer matches the correct color
                 Log.d("AnswerActivity", "Selected answer: $selectedAnswer, Correct color: $correctColor")
-                val isCorrect = selectedAnswer == correctColor
+                val isCorrect = selectedAnswer.equals(correctColor, ignoreCase = true)
                 val intent = Intent(context, ResultActivity::class.java).apply {
                     putExtra(NAME, name)
                     putExtra(RESULT, if (isCorrect) SUCCESS else FAILED)

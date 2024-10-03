@@ -107,7 +107,6 @@ fun QuestionScreen() {
                 val color1: String
                 val color2: String
 
-                // Determine the mixed color based on selected checkboxes
                 when {
                     colorBlue && colorRed -> {
                         mixedColor = PURPLE
