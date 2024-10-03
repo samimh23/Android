@@ -62,17 +62,15 @@ fun QuestionScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Input field for name
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Enter your name") },
+            label = { Text("esmek mon ami") },
             modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Color selection checkboxes
         Row {
             Checkbox(checked = colorBlue, onCheckedChange = { colorBlue = it })
             Text("Blue")
@@ -88,7 +86,6 @@ fun QuestionScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Display error message if needed
         if (errorMessage.isNotEmpty()) {
             Text(
                 text = errorMessage,
@@ -99,19 +96,17 @@ fun QuestionScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Button to mix colors and proceed
         Button(onClick = {
             val selectedColors = listOf(colorBlue, colorRed, colorYellow).count { it }
             if (name.isEmpty()) {
-                errorMessage = "You must enter your name!"
+                errorMessage = "esmk oiesm bouk"
             } else if (selectedColors != 2) {
-                errorMessage = "You must choose exactly 2 colors!"
+                errorMessage = "lezem tekhtar zouz alwen!"
             } else {
                 val mixedColor: String
                 val color1: String
                 val color2: String
 
-                // Mix colors based on the selection
                 if (colorBlue && colorRed) {
                     mixedColor = PURPLE
                     color1 = BLUE
@@ -125,11 +120,10 @@ fun QuestionScreen() {
                     color1 = RED
                     color2 = YELLOW
                 } else {
-                    errorMessage = "You must choose exactly 2 colors!"
+                    errorMessage = "ekhatr zouz alwen "
                     return@Button
                 }
 
-                // Navigate to the AnswerActivity
                 val intent = Intent(context, AnswerActivity::class.java).apply {
                     putExtra(NAME, name)
                     putExtra(MIXED_COLOR, mixedColor)
@@ -140,7 +134,7 @@ fun QuestionScreen() {
                 context.startActivity(intent)
             }
         }) {
-            Text("Mix Colors")
+            Text("Mix")
         }
     }
 }

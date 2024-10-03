@@ -71,7 +71,7 @@ fun ResultScreen(result: String, name: String) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = { /* Handle finish or return to main screen */ }) {
+        Button(onClick = {  }) {
             Text("Quit")
         }
     }

@@ -30,13 +30,11 @@ class AnswerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Retrieve intent data
         correctColor = intent.getStringExtra(MIXED_COLOR) ?: "NONE"
         name = intent.getStringExtra(NAME) ?: "NONE"
         color1 = intent.getStringExtra(COLOR1) ?: "NONE"
         color2 = intent.getStringExtra(COLOR2) ?: "NONE"
 
-        // Set Compose content
         setContent {
             MyApplicationColorTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
@@ -73,7 +71,6 @@ fun AnswerScreen(name: String, color1: String, color2: String, correctColor: Str
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Radio buttons for color choices
         RadioButtonGroup(
             selectedAnswer = selectedAnswer,
             onAnswerSelected = { selectedAnswer = it }
@@ -81,28 +78,26 @@ fun AnswerScreen(name: String, color1: String, color2: String, correctColor: Str
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Submit button
         Button(onClick = {
             if (selectedAnswer.isEmpty()) {
                 showSnackbar = true
             } else {
                 val isCorrect = selectedAnswer == correctColor
-                // Navigate to ResultActivity
                 val intent = Intent(context, ResultActivity::class.java).apply {
                     putExtra(NAME, name)
                     putExtra(RESULT, if (isCorrect) SUCCESS else FAILED)
                 }
-                context.startActivity(intent) // Use the context to start the activity
+                context.startActivity(intent)
             }
         }) {
             Text("Submit")
         }
 
-        // Show snackbar if no answer selected
+
         if (showSnackbar) {
             Snackbar(
                 modifier = Modifier.padding(8.dp),
-                content = { Text("Please choose an answer!") }
+                content = { Text("ekhatr ijebaa ") }
             )
         }
     }
