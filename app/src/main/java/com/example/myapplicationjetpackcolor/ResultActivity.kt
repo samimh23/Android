@@ -1,13 +1,11 @@
 package com.example.myapplicationjetpackcolor
 
-import android.icu.lang.UProperty.NAME
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,9 +26,8 @@ class ResultActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val result = intent.getStringExtra(RESULT) ?: FAILED
-        val name = intent.getStringExtra(NAME.toString()) ?: "Unknown"
+        val name = intent.getStringExtra(NAME) ?: "Unknown"
 
         setContent {
             MyApplicationColorTheme {
@@ -45,7 +42,7 @@ class ResultActivity : ComponentActivity() {
 @Composable
 fun ResultScreen(result: String, name: String) {
     val backgroundColor = if (result == SUCCESS) Color.Green else Color.Red
-    val message = if (result == SUCCESS) "Congratulation $name! You succeeded!" else "Sorry $name! You failed!"
+    val message = if (result == SUCCESS) "Congratulations $name! You succeeded!" else "Sorry $name! You failed!"
 
     Column(
         modifier = Modifier
@@ -71,7 +68,7 @@ fun ResultScreen(result: String, name: String) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {  }) {
+        Button(onClick = { /* Handle quit action here */ }) {
             Text("Quit")
         }
     }

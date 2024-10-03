@@ -107,23 +107,30 @@ fun QuestionScreen() {
                 val color1: String
                 val color2: String
 
-                if (colorBlue && colorRed) {
-                    mixedColor = PURPLE
-                    color1 = BLUE
-                    color2 = RED
-                } else if (colorBlue && colorYellow) {
-                    mixedColor = GREEN
-                    color1 = BLUE
-                    color2 = YELLOW
-                } else if (colorRed && colorYellow) {
-                    mixedColor = ORANGE
-                    color1 = RED
-                    color2 = YELLOW
-                } else {
-                    errorMessage = "ekhatr zouz alwen "
-                    return@Button
+                // Determine the mixed color based on selected checkboxes
+                when {
+                    colorBlue && colorRed -> {
+                        mixedColor = PURPLE
+                        color1 = BLUE
+                        color2 = RED
+                    }
+                    colorBlue && colorYellow -> {
+                        mixedColor = GREEN
+                        color1 = BLUE
+                        color2 = YELLOW
+                    }
+                    colorRed && colorYellow -> {
+                        mixedColor = ORANGE
+                        color1 = RED
+                        color2 = YELLOW
+                    }
+                    else -> {
+                        errorMessage = "ekhatr zouz alwen"
+                        return@Button
+                    }
                 }
 
+                // Start AnswerActivity with the mixed color and selected colors
                 val intent = Intent(context, AnswerActivity::class.java).apply {
                     putExtra(NAME, name)
                     putExtra(MIXED_COLOR, mixedColor)
